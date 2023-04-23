@@ -15,8 +15,8 @@ class Player:
         self.sprite_counter = 0
         self.direction = "down"
 
-        self.x = 0
-        self.y = 0
+        self.x = 48
+        self.y = 48
         self.speed = 5
 
         self.setSprites()
@@ -44,9 +44,29 @@ class Player:
 
             self.right_sprites.append(pygame.transform.scale(
                 sprite, (TILE_SIZE, TILE_SIZE)))
+    
+    def colision(self):
+        if (self.x < 44):
+            self.speed = 0
+            self.x = 44
+            self.speed = 5
+        elif (self.x >1060):
+            self.speed = 0
+            self.x = 1060
+            self.speed = 5
 
+        if (self.y < 48):
+            self.speed = 0
+            self.y = 48
+            self.speed = 5
+        elif (self.y >668):
+            self.speed = 0
+            self.y = 668
+            self.speed = 5
+            
     def update(self):
         # Movement system
+        self.colision()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
             self.y -= self.speed
