@@ -1,6 +1,7 @@
 from constants import *
 
 from entities.Player import Player
+from entities.Tile import Tile
 import pygame
 pygame.init()
 
@@ -10,6 +11,7 @@ FPS = 60
 clock = pygame.time.Clock()
 
 player = Player()
+floor = Tile('./sprites/tiles/floor.png')
 
 pygame.display.set_caption("Aurelius")
 exit = False
@@ -22,6 +24,11 @@ while not exit:
             exit = True
 
     screen.fill(BLACK)
+
+    # Draw floor
+    for col in range(SCREEN_COLUMNS):
+        for row in range(SCREEN_ROWS):
+            floor.draw(screen, col, row)
 
     player.update()
     player.draw(screen)

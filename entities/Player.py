@@ -65,7 +65,7 @@ class Player:
         # sprites animation
         if (keys[pygame.K_UP] or keys[pygame.K_DOWN] or keys[pygame.K_LEFT] or keys[pygame.K_RIGHT]):
             self.sprite_counter += 1
-            if (self.sprite_counter > 10):
+            if (self.sprite_counter > 8):
                 if self.sprite_num == 1:
                     self.sprite_num = 2
                 elif self.sprite_num == 2:
