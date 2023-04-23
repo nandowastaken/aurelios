@@ -4,7 +4,6 @@ from entities.Player import Player
 from entities.Tile import Tile
 from objects.Page import Page
 from KeyHandler import KeyHandler
-import json
 import pygame
 pygame.init()
 
@@ -25,23 +24,9 @@ readBook = False
 
 pageObj = Page(page)
 
-font = pygame.font.Font('./fonts/Inconsolata-VariableFont_wdth,wght.ttf', 12)
-
 pygame.display.set_caption("Aurelius")
 
 exit = False
-
-with open("./jsons/stories.json") as jsonFile:
-    jsonObject = json.load(jsonFile)
-    jsonFile.close()
-
-mitoDeRomaTexto = jsonObject["historia"]
-
-text = font.render(
-    mitoDeRomaTexto, True, GREEN, BLUE)
-
-textRect = text.get_rect()
-textRect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
 while not exit:
     clock.tick(FPS)
