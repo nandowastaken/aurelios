@@ -7,7 +7,6 @@ with open('jsons/stories.json', encoding="utf-8") as f:
     data = json.load(f)
 
 words = data["historia"].split()
-print(words)
 
 
 class Page:
