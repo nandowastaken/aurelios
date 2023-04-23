@@ -1,5 +1,5 @@
-from constants import *
 import pygame
+from constants import *
 pygame.init()
 
 
@@ -11,6 +11,8 @@ class Player:
         self.right_sprites = []
 
         self.sprite = None
+        self.sprite_num = 1
+        self.sprite_counter = 0
         self.direction = "down"
 
         self.x = 0
@@ -46,13 +48,6 @@ class Player:
     def update(self):
         # Movement system
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.x -= self.speed
-            self.direction = "left"
-        elif keys[pygame.K_RIGHT]:
-            self.x += self.speed
-            self.direction = "right"
-
         if keys[pygame.K_UP]:
             self.y -= self.speed
             self.direction = "up"
@@ -60,15 +55,40 @@ class Player:
             self.y += self.speed
             self.direction = "down"
 
-        # Adjusts the sprite to the direction of the player movement
-        if self.direction == "down":
-            self.sprite = self.down_sprites[0]
-        elif self.direction == "up":
-            self.sprite = self.up_sprites[0]
-        elif self.direction == "left":
-            self.sprite = self.left_sprites[0]
-        elif self.direction == "right":
-            self.sprite = self.right_sprites[0]
+        if keys[pygame.K_LEFT]:
+            self.x -= self.speed
+            self.direction = "left"
+        elif keys[pygame.K_RIGHT]:
+            self.x += self.speed
+            self.direction = "right"
+
+        # sprites animation
+        if (keys[pygame.K_UP] or keys[pygame.K_DOWN] or keys[pygame.K_LEFT] or keys[pygame.K_RIGHT]):
+            self.sprite_counter += 1
+            if (self.sprite_counter > 10):
+                if self.sprite_num == 1:
+                    self.sprite_num = 2
+                elif self.sprite_num == 2:
+                    self.sprite_num = 3
+                elif self.sprite_num == 3:
+                    self.sprite_num = 4
+                elif self.sprite_num == 4:
+                    self.sprite_num = 1
+
+                self.sprite_counter = 0
+        else:
+            self.sprite_counter = 0
+            self.sprite_num = 1
 
     def draw(self, screen):
+        # Adjusts the sprite to the direction of the player movement
+        if self.direction == "down":
+            self.sprite = self.down_sprites[self.sprite_num - 1]
+        elif self.direction == "up":
+            self.sprite = self.up_sprites[self.sprite_num - 1]
+        elif self.direction == "left":
+            self.sprite = self.left_sprites[self.sprite_num - 1]
+        elif self.direction == "right":
+            self.sprite = self.right_sprites[self.sprite_num - 1]
+
         screen.blit(self.sprite, (self.x, self.y))

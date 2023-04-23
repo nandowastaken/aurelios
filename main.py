@@ -1,4 +1,5 @@
 from constants import *
+
 from entities.Player import Player
 import pygame
 pygame.init()
